@@ -11,7 +11,7 @@ class CoachController(val repository: CoachRepository) {
 
     @GetMapping
     fun listCoaches(): ResponseEntity<CoachDTO> {
-        var coaches = CoachDTO(repository.findAll())
+        val coaches = CoachDTO(repository.findAll())
         return ResponseEntity.ok(coaches)
     }
 
@@ -24,7 +24,7 @@ class CoachController(val repository: CoachRepository) {
         val coachFromDB = repository.findById(id).orElseThrow{
             RuntimeException("Coach $coach.$id not found")
         }
-        return ResponseEntity.ok(repository.save(coachFromDB.copy(name=coach.name, city = coach.city)))
+        return ResponseEntity.ok(repository.save(coachFromDB.copy(name=coach.name, address = coach.address)))
     }
 
     @DeleteMapping("{id}")
